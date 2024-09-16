@@ -41,7 +41,7 @@ function preload() {
   // 24 - 27 - run
   this.load.spritesheet({
     key: "grey-player",
-    url: "/src/assets/players grey x2.png",
+    url: "/assets/players grey x2.png",
     frameConfig: {
       frameWidth: 64,
       frameHeight: 64,
