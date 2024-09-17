@@ -48,6 +48,15 @@ class SceneOverview extends Phaser.Scene {
         endFrame: 100,
       },
     });
+
+    this.load.image(
+      "tiles",
+      "../assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/tileset x2.png"
+    );
+    this.load.tilemapTiledJSON(
+      "dungeon",
+      "../assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/dungeon-01.json"
+    );
   }
 
   create() {
@@ -57,8 +66,23 @@ class SceneOverview extends Phaser.Scene {
     });
 
     // TODO: replace 'platforms' with 'walls'
-    const platforms = this.physics.add.staticGroup();
-    platforms.create(320, 350, "platform").setScale(2, 0.5).refreshBody();
+    const map = this.make.tilemap({ key: "dungeon" });
+    const tileset = map.addTilesetImage("dungeon", "tiles");
+
+    map.createStaticLayer("Ground", tileset);
+    const wallsLayer = map.createStaticLayer("Walls", tileset);
+    wallsLayer.setCollisionByProperty({ collides: true });
+
+    // debugging collidable walls
+    // const debugGraphics = this.add.graphics().setAlpha(0.7);
+    // wallsLayer.renderDebug(debugGraphics, {
+    //   tileColor: null,
+    //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+    // });
+
+    // const platforms = this.physics.add.staticGroup();
+    // platforms.create(320, 350, "platform").setScale(2, 0.5).refreshBody();
 
     // this.levelSetup(); // draw the buildings/layers/rooms
     // ADD PLAYER
@@ -91,7 +115,7 @@ class SceneOverview extends Phaser.Scene {
 
     // To have collision with the 'platform' that represents the floor
     this.player.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, platforms);
+    this.physics.add.collider(this.player, wallsLayer);
 
     // To transition between Scenes
     this.input.on("pointerdown", () => {
@@ -112,18 +136,20 @@ class SceneOverview extends Phaser.Scene {
 
   update() {
     const cursors = this.input.keyboard.createCursorKeys();
-
     if (cursors.left.isDown) {
       this.player.setVelocityX(-200);
       this.player.anims.play("run", true);
       this.player.flipX = true;
+      this.player.body.offset.x = 16;
     } else if (cursors.right.isDown) {
       this.player.setVelocityX(200);
       this.player.anims.play("run", true);
       this.player.flipX = false;
+      this.player.body.offset.x = -16;
     } else if (cursors.up.isDown) {
       this.player.setVelocityY(-200);
       this.player.anims.play("run", true);
+      this.player.body.offset.y = 32;
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(200);
       this.player.anims.play("run", true);

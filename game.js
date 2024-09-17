@@ -1,7 +1,7 @@
 const gameState = {
   score: 0,
-  width: 2000,
-  height: 360,
+  width: 1920,
+  height: 1280,
 };
 
 const config = {
@@ -17,7 +17,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [SceneIntro, SceneOverview, SceneInput],
+  scene: [SceneOverview, SceneInput, SceneIntro],
 };
 
 const game = new Phaser.Game(config);
