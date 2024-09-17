@@ -51,11 +51,11 @@ class SceneOverview extends Phaser.Scene {
 
     this.load.image(
       "tiles",
-      "../assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/tileset x2.png"
+      "./assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/tileset x2.png"
     );
     this.load.tilemapTiledJSON(
       "dungeon",
-      "../assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/dungeon-01.json"
+      "./assets/Tech Dungeon Roguelite - Asset Pack (DEMO)/dungeon-01.json"
     );
   }
 
