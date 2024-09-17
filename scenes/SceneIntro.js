@@ -10,8 +10,12 @@ class SceneIntro extends Phaser.Scene {
     });
 
     this.input.on("pointerdown", () => {
-      this.scene.stop("SceneIntro");
-      this.scene.start("SceneOverview");
+      this.cameras.main.fade(800, 0, 0, 0, false, function (camera, progress) {
+        if (progress > 0.9) {
+          this.scene.stop("SceneIntro");
+          this.scene.start("SceneOverview");
+        }
+      });
     });
   }
 }

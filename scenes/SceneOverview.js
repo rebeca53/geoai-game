@@ -95,8 +95,12 @@ class SceneOverview extends Phaser.Scene {
 
     // To transition between Scenes
     this.input.on("pointerdown", () => {
-      this.scene.stop("SceneOverview");
-      this.scene.start("SceneInput");
+      this.cameras.main.fade(800, 0, 0, 0, false, function (camera, progress) {
+        if (progress > 0.9) {
+          this.scene.stop("SceneOverview");
+          this.scene.start("SceneInput");
+        }
+      });
     });
 
     // SCORE
